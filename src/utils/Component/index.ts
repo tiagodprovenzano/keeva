@@ -13,14 +13,18 @@ export class Component {
     create(){
         const defaultTemplatePath = __dirname.replace('utils', 'templates')
         const dir = fs.readdirSync(defaultTemplatePath)
+        console.log(dir);
+        
         for (const templateFileName of dir) {
             const templatePath = path.join(defaultTemplatePath, templateFileName)
-            const templateFn = require(templatePath).default
+            const templateFn = require(templatePath)
+            console.log(templateFileName, templatePath, templateFn);
             if(typeof templateFn === 'function'){
                 const template = templateFn(this.name)
                 const filename = template.filename
                 const ext = template.ext
                 const content = template.content
+                console.log(content, ext, filename);
                 new File(
                     filename,
                     content,
