@@ -17,16 +17,19 @@ export class Component extends Keeva {
     }
 
     const hasCustomTemplates = this.hasCustomTemplates()
-    const defaultTemplatePath = __dirname.replace("utils", "templates");
+    let templatesPath = __dirname.replace("utils", "templates");
 
     let dir: string[] = []
     if(hasCustomTemplates){
-        if(this.workspaceFolderPath) dir = fs.readdirSync(path.join(this.workspaceFolderPath, 'templates', this.commandDir));
+        if(this.workspaceFolderPath) {
+            templatesPath = path.join(this.workspaceFolderPath, '.keeva','templates', this.commandDir)
+            dir = fs.readdirSync(templatesPath)
+        };
     }else{
-        dir = fs.readdirSync(defaultTemplatePath);
+        dir = fs.readdirSync(templatesPath);
     }  
     for (const templateFileName of dir) {
-      const templatePath = path.join(defaultTemplatePath, templateFileName);
+      const templatePath = path.join(templatesPath, templateFileName);
       const templateFn = require(templatePath);
       if (typeof templateFn === "function") {
         const template = templateFn(this.name);
