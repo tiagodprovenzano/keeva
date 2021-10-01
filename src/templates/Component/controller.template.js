@@ -1,6 +1,6 @@
 import { camelToKebab } from "../../utils/library/camelToKebab";
-
-export default (name) => ({
+const {camelToKebab} = require('../../utils/library/camelToKebab')
+module.exports = (name) => ({
     filename: camelToKebab(name) + '.controller',
     ext: 'tsx',
     content: `
