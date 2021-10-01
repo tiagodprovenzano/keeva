@@ -9,6 +9,11 @@
     "build": "rimraf ./build && tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tiagodprovenzano/keeva.git"
+  },
+  "private": false,
   "keywords": [],
   "author": "",
   "license": "ISC",
