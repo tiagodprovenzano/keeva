@@ -2,7 +2,10 @@
   "name": "@tiagodprovenzano/react-keeva",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
+  "files": [
+    "build"
+  ],
   "scripts": {
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
