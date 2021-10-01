@@ -13,7 +13,11 @@ export class Component {
     create(){
         const defaultTemplatePath = __dirname.replace('utils', 'templates')
         const dir = fs.readdirSync(defaultTemplatePath)
-        
+        const targetFolderPath = path.join(this.dirPath, this.name)
+        const folder = fs.readdirSync(targetFolderPath)
+        if(!folder){
+            fs.mkdirSync(targetFolderPath)
+        }
         for (const templateFileName of dir) {
             const templatePath = path.join(defaultTemplatePath, templateFileName)
             const templateFn = require(templatePath)
@@ -25,7 +29,7 @@ export class Component {
                 new File(
                     filename,
                     content,
-                    this.dirPath,
+                    targetFolderPath,
                     ext
                 ).create()
             }
