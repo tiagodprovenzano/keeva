@@ -2,6 +2,7 @@ import * as fs from "fs";
 import path from "path";
 import { File } from "../File";
 import { Keeva } from "../Keeva";
+import { Template } from "../Template";
 
 export class Component extends Keeva {
   constructor(name: string, dirPath: string, workspaceFolderPath: string = '') {
@@ -30,13 +31,9 @@ export class Component extends Keeva {
     }  
     for (const templateFileName of dir) {
       const templatePath = path.join(templatesPath, templateFileName);
-      const templateFn = require(templatePath);
-      if (typeof templateFn === "function") {
-        const template = templateFn(this.name);
-        const filename = template.filename;
-        const ext = template.ext;
-        const content = template.content;
-        new File(filename, content, targetFolderPath, ext).create();
+      const {content, info} = new Template(templatePath, {name: this.name}).parse()
+      if (content && info) {
+        new File(info.filename, content, targetFolderPath, info.ext).create();
       }
     }
   }

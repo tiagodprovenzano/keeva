@@ -5,9 +5,9 @@ export class File {
   private name: string;
   private content: string;
   private path: string;
-  private ext: IFileExt;
+  private ext: string;
 
-  constructor(name: string, content: string, path: string, ext: IFileExt) {
+  constructor(name: string, content: string, path: string, ext: string) {
     this.name = name;
     this.ext = ext;
     this.content = content;

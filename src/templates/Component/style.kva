@@ -1,0 +1,8 @@
+@FILENAME=<%KEBAB|name%>.style
+@EXT=ts
+
+import styled, { css } from 'styled-components'
+
+const <%name%>Wrapper = styled.div`${({theme}) => css`
+
+`}`
