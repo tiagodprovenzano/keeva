@@ -24,7 +24,7 @@ export abstract class Keeva {
     this.commandDir = commandDir;
     const hasCustomConfig = this.hasConfigFile()
     if(hasCustomConfig && this.workspaceFolderPath){
-        this.customConfig = require(path.join(this.workspaceFolderPath, ".keevarc"));
+        this.customConfig = require(path.join(this.workspaceFolderPath, ".keeva.config.json"));
         console.log(this.customConfig);
     }else{
         this.customConfig = null
@@ -33,7 +33,7 @@ export abstract class Keeva {
 
   protected hasConfigFile = (): boolean => {
     if (this.workspaceFolderPath) {
-      const configFile = path.join(this.workspaceFolderPath, ".keevarc");
+      const configFile = path.join(this.workspaceFolderPath, ".keeva.config.json");
       try {
         fs.readFileSync(configFile);
       } catch (error) {
