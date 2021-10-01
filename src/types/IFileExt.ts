@@ -1,0 +1,1 @@
+export type IFileExt = 'ts' | 'tsx' | 'json' | 'js' | 'jsx'
