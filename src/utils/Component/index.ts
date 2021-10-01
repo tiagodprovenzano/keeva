@@ -14,8 +14,10 @@ export class Component {
         const defaultTemplatePath = __dirname.replace('utils', 'templates')
         const dir = fs.readdirSync(defaultTemplatePath)
         const targetFolderPath = path.join(this.dirPath, this.name)
-        const folder = fs.readdirSync(targetFolderPath)
-        if(!folder){
+        try {
+            fs.readdirSync(targetFolderPath)
+        } catch (error) {
+            
             fs.mkdirSync(targetFolderPath)
         }
         for (const templateFileName of dir) {
