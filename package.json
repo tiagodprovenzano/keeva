@@ -1,12 +1,12 @@
 {
   "name": "@tiagodprovenzano/react-keeva",
-  "version": "1.0.6",
+  "version": "1.0.5",
   "description": "",
   "main": "build/index.js",
   "scripts": {
     "start": "npm run build && node build/index.js",
     "start:dev": "nodemon",
-    "build": "rimraf ./build && tsc && cp ./package.json build && cp -r ./src/templates build",
+    "build": "rimraf ./build && tsc && cp -r ./src/templates build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -24,7 +24,5 @@
     "ts-node": "^10.2.1",
     "typescript": "^4.4.3"
   },
-  "files": [
-    "build"
-  ]
+  "files": ["build"]
 }

@@ -15,6 +15,7 @@
 
     /* JavaScript Support */
     "allowJs": true,                                     /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
+
     /* Emit */
     "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "outDir": "build",                                   /* Specify an output folder for all emitted files. */
@@ -26,6 +27,6 @@
     "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied `any` type.. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "exclude": ["src/templates", "node_modules", "src/**/*.spec.ts"],
+  "exclude": ["src/templates/**/*.js", "node_modules", "src/**/*.spec.ts"],
   "include": ["src"]
 }
