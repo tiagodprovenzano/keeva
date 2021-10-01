@@ -27,6 +27,6 @@
     "noImplicitAny": true,                               /* Enable error reporting for expressions and declarations with an implied `any` type.. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "exclude": ["build", "src/templates", "node_modules", "src/**/*.spec.ts"],
+  "exclude": ["src/templates", "node_modules", "src/**/*.spec.ts"],
   "include": ["src"]
 }
