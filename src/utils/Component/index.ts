@@ -20,9 +20,9 @@ export class Component extends Keeva {
     let templatesPath = __dirname.replace("utils", "templates");
 
     let dir: string[] = []
-    if(hasCustomTemplates){
+    if(hasCustomTemplates && this.customConfig?.templatesUri){
         if(this.workspaceFolderPath) {
-            templatesPath = path.join(this.workspaceFolderPath, '.keeva','templates', this.commandDir)
+            templatesPath = path.join(this.workspaceFolderPath, this.customConfig.templatesUri, this.commandDir)
             dir = fs.readdirSync(templatesPath)
         };
     }else{
