@@ -1,4 +1,3 @@
-import { camelToKebab } from "../../utils/library/camelToKebab";
 const {camelToKebab} = require('../../utils/library/camelToKebab')
 module.exports = (name) => ({
     filename: camelToKebab(name) + '.controller',

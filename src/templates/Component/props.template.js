@@ -1,6 +1,6 @@
-import { camelToKebab } from "../../utils/library/camelToKebab";
+const { camelToKebab } = require("../../utils/library/camelToKebab");
 
-export default (name) => ({
+module.exports = (name) => ({
     filename: camelToKebab(name) + '.props',
     ext: 'ts',
     content: `
