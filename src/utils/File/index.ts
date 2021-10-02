@@ -14,6 +14,10 @@ export class File {
     this.path = path;
   }
 
+  static isFile(string: string){
+    return !!string.match(/.kva$/)
+  }
+
   create(){
 
       const filePath = path.join(this.path, `${this.name}.${this.ext}`)

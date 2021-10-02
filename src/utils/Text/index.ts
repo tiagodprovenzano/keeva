@@ -8,6 +8,16 @@ export class Text {
     this.variables = variables;
   }
 
+  static getVariablesFromText(text: string) {
+    const regex = new RegExp(/<%(|KEBAB\|)([a-zA-Z\d-_]{0,})%>/gm);
+    const matches = text.match(regex);
+    if (matches && Array.isArray(matches)) {
+      let test = matches.map((txt) => txt.replace(regex, "$2"));
+      return test;
+    }
+    return [];
+  }
+
   parse() {
     const regex = new RegExp(/<%([A-Z,a-z,|]{0,})%>/gm);
     const matches = this.text.match(regex);

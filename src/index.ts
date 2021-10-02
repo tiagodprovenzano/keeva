@@ -3,6 +3,7 @@ import { Component } from "./utils/Component";
 import { ConfigFile } from "./utils/CofigFIle";
 import { Variables } from "./utils/Variables";
 import { Command } from "./utils/Command";
+import { TemplateVariables } from "./utils/TemplateVariables";
 
 function create(
   projectPath: string,
@@ -11,8 +12,8 @@ function create(
   variablesInput: string
 ): void {
   const configFile = new ConfigFile(projectPath);
-  const variables = new Variables(variablesInput).variables;
   const commandDir = new Command(command).folder;
+  const variables = new Variables(variablesInput).variables;
   new Component(
     variables,
     targetPath,
@@ -21,4 +22,4 @@ function create(
   ).create();
 }
 
-export { camelToKebab, create, ConfigFile };
+export { camelToKebab, create, ConfigFile, TemplateVariables };
