@@ -13,8 +13,6 @@ export class TemplateVariables {
   private addVariable(variable: string) {
     if (!this._variables.includes(variable)) {
       this._variables.push(variable);
-      console.log(this._variables);
-      
     }
   }
 

@@ -25,7 +25,6 @@ export abstract class Keeva {
     const hasCustomConfig = this.hasConfigFile()
     if(hasCustomConfig && this.workspaceFolderPath){
         this.customConfig = require(path.join(this.workspaceFolderPath, "keeva.config.json"));
-        console.log(this.customConfig);
     }else{
         this.customConfig = null
     }
@@ -51,7 +50,6 @@ export abstract class Keeva {
         this.customConfig?.templatesUri,
         this.commandDir
       );
-      console.log({customTemplatesPath});
       try {
         fs.readdirSync(customTemplatesPath);
       } catch (error) {
