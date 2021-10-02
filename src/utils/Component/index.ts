@@ -1,40 +1,49 @@
 import * as fs from "fs";
 import path from "path";
 import { File } from "../File";
-import { Keeva } from "../Keeva";
 import { Template } from "../Template";
+import { Text } from "../Text";
 
-export class Component extends Keeva {
-  constructor(name: string, dirPath: string, workspaceFolderPath: string = '') {
-    super(name, dirPath, workspaceFolderPath, 'Component');
+export class Component {
+  private variables: Record<string, string>
+  private targetDirPath: string
+  private templateUri: string
+  constructor(variables: Record<string, string>, targetDirPath: string, templatesUri: string, commandDir: string) {
+    this.variables = variables;
+    this.targetDirPath = targetDirPath;
+    this.templateUri = path.join(templatesUri, commandDir)
   }
 
   create() {
-    const targetFolderPath = path.join(this.dirPath, this.name);
-    try {
-      fs.readdirSync(targetFolderPath);
-    } catch (error) {
-      fs.mkdirSync(targetFolderPath);
-    }
 
-    const hasCustomTemplates = this.hasCustomTemplates()
-    let templatesPath = __dirname.replace("utils", "templates");
+    const loopDir = (targetDirPath: string, parentFolderParsed: string = '', parentFolderUnparsed: string = '') => {
+      const targetFolderPath = path.join(targetDirPath, parentFolderParsed);
+      try {
+        fs.readdirSync(targetFolderPath);
+      } catch (error) {
+        fs.mkdirSync(targetFolderPath);
+      }
 
-    let dir: string[] = []
-    if(hasCustomTemplates && this.customConfig?.templatesUri){
-        if(this.workspaceFolderPath) {
-            templatesPath = path.join(this.workspaceFolderPath, this.customConfig.templatesUri, this.commandDir)
-            dir = fs.readdirSync(templatesPath)
-        };
-    }else{
-        dir = fs.readdirSync(templatesPath);
-    }  
-    for (const templateFileName of dir) {
-      const templatePath = path.join(templatesPath, templateFileName);
-      const {content, info} = new Template(templatePath, {name: this.name}).parse()
-      if (content && info) {
-        new File(info.filename, content, targetFolderPath, info.ext).create();
+      let dir: string[] = fs.readdirSync(path.join(this.templateUri, parentFolderUnparsed))
+      const createFile = (templateFileName: string) => {
+        const templatePath = path.join(this.templateUri, parentFolderUnparsed, templateFileName);
+        const {content, info} = new Template(templatePath, this.variables).parse()
+        if (content && info) {
+          new File(info.filename, content, targetFolderPath, info.ext).create();
+        }
+      }
+  
+      for (const templateFileName of dir) {
+        if(templateFileName.match(/.kva$/)){
+          createFile(templateFileName)
+        }else{
+          const parsedTemplateFileName = new Text(templateFileName, this.variables).parse()
+          loopDir(targetDirPath, path.join(parentFolderParsed, parsedTemplateFileName), path.join(parentFolderUnparsed, templateFileName))
+        }
       }
     }
+
+    loopDir(this.targetDirPath)
+    
   }
 }
