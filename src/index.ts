@@ -21,4 +21,4 @@ function create(
   ).create();
 }
 
-export { camelToKebab, create };
+export { camelToKebab, create, ConfigFile };
