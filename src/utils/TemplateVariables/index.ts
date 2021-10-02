@@ -26,6 +26,7 @@ export class TemplateVariables {
   }
 
   get variables() {
+    this.find();
     return this._variables;
   }
 
@@ -36,7 +37,7 @@ export class TemplateVariables {
     }
   }
 
-  find() {
+  private find() {
     const loopDir = (dirPath: string) => {
       const exists = fs.existsSync(dirPath);
       if (exists) {
