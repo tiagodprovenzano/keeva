@@ -4,6 +4,7 @@ import { ConfigFile } from "./utils/CofigFIle";
 import { Variables } from "./utils/Variables";
 import { Command } from "./utils/Command";
 import { TemplateVariables } from "./utils/TemplateVariables";
+import { validateInputText } from "./utils/library/validateInputText";
 
 function create(
   projectPath: string,
@@ -22,4 +23,5 @@ function create(
   ).create();
 }
 
-export { camelToKebab, create, ConfigFile, TemplateVariables };
+export { camelToKebab, create, ConfigFile, TemplateVariables, validateInputText };
+
