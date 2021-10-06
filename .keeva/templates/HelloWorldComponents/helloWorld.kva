@@ -1,8 +1,0 @@
-@FILENAME=<%name%>.hello-world
-@EXT=js
-
-// This is your first Keeva file! Add other variables and see how the system plays out. Good luck and happy coding!
-
-console.log("<%hello%>")
-console.log("<%world%>")
-
