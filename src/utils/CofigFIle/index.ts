@@ -92,9 +92,9 @@ export class ConfigFile {
       const templateFileContent: string = readFileSync(templateFilePath, {
         encoding: "utf8",
       });
-      const folderToSave = path.join(pathToTemplates, "HelloWorldComponents")
+      const folderToSave = path.join(projectPath, pathToTemplates, "HelloWorldComponents")
       if(!existsSync(folderToSave)){
-        mkdirSync(folderToSave)
+        mkdirSync(folderToSave, {recursive: true})
       }
       writeFileSync(
         path.join(folderToSave, templateFileName),
