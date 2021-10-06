@@ -77,12 +77,12 @@ export class ConfigFile {
       projectPath,
       ConfigFile.keevaConfigFileName
     );
-    const pathToTemplates = path.join("./.keeva/templates");
+    const pathToTemplates = path.join(projectPath, "./.keeva/templates");
     if(!existsSync(pathToTemplates)){
       mkdirp.sync(pathToTemplates)
     }
     const config: IConfigFileJSON = {
-      templatesUri: pathToTemplates,
+      templatesUri: '.keeva/templates',
       methods: [{ name: "Hello World", folder: "HelloWorldComponents" }],
     };
     writeFileSync(pathToConfigFile, JSON.stringify(config));
@@ -93,7 +93,7 @@ export class ConfigFile {
       const templateFileContent: string = readFileSync(templateFilePath, {
         encoding: "utf8",
       });
-      const folderToSave = path.join(projectPath, pathToTemplates, "HelloWorldComponents")
+      const folderToSave = path.join(pathToTemplates, "HelloWorldComponents")
       if(!existsSync(folderToSave)){
         mkdirp.sync(folderToSave)
 
