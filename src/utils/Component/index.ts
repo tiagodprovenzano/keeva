@@ -3,7 +3,7 @@ import path from "path";
 import { File } from "../File";
 import { Template } from "../Template";
 import { Text } from "../Text";
-
+import mkdirp from "mkdirp";
 export class Component {
   private variables: Record<string, string>
   private targetDirPath: string
@@ -21,7 +21,7 @@ export class Component {
       try {
         fs.readdirSync(targetFolderPath);
       } catch (error) {
-        fs.mkdirSync(targetFolderPath);
+        mkdirp.sync(targetFolderPath);
       }
 
       let dir: string[] = fs.readdirSync(path.join(this.templateUri, parentFolderUnparsed))

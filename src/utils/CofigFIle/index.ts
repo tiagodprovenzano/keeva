@@ -7,6 +7,7 @@ import {
   mkdirSync
 } from "fs";
 import path from "path";
+import mkdirp from 'mkdirp'
 
 type IConfigFileJSON = {
   templatesUri: string;
@@ -78,7 +79,7 @@ export class ConfigFile {
     );
     const pathToTemplates = path.join("./.keeva/templates");
     if(!existsSync(pathToTemplates)){
-      mkdirSync(pathToTemplates, {recursive: true})
+      mkdirp.sync(pathToTemplates)
     }
     const config: IConfigFileJSON = {
       templatesUri: pathToTemplates,
@@ -94,7 +95,8 @@ export class ConfigFile {
       });
       const folderToSave = path.join(projectPath, pathToTemplates, "HelloWorldComponents")
       if(!existsSync(folderToSave)){
-        mkdirSync(folderToSave, {recursive: true})
+        mkdirp.sync(folderToSave)
+
       }
       writeFileSync(
         path.join(folderToSave, templateFileName),

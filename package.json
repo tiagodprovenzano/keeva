@@ -18,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/mkdirp": "^1.0.2",
     "@types/node": "^16.10.2",
     "nodemon": "^2.0.13",
     "rimraf": "^3.0.2",
@@ -26,5 +27,8 @@
   },
   "files": [
     "build"
-  ]
+  ],
+  "dependencies": {
+    "mkdirp": "^1.0.4"
+  }
 }
