@@ -1,5 +1,6 @@
 import * as fs from "fs";
 import path from "path";
+import { ConfigFile } from "../CofigFIle";
 
 type ICustomConfig = {
     templatesUri: string
@@ -24,7 +25,7 @@ export abstract class Keeva {
     this.commandDir = commandDir;
     const hasCustomConfig = this.hasConfigFile()
     if(hasCustomConfig && this.workspaceFolderPath){
-        this.customConfig = require(path.join(this.workspaceFolderPath, "keeva.config.json"));
+        this.customConfig = require(path.join(this.workspaceFolderPath, ConfigFile.keevaConfigFileName));
     }else{
         this.customConfig = null
     }
@@ -32,7 +33,7 @@ export abstract class Keeva {
 
   protected hasConfigFile = (): boolean => {
     if (this.workspaceFolderPath) {
-      const configFile = path.join(this.workspaceFolderPath, "keeva.config.json");
+      const configFile = path.join(this.workspaceFolderPath, ConfigFile.keevaConfigFileName);
       try {
         fs.readFileSync(configFile);
       } catch (error) {

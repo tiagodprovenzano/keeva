@@ -1,8 +1,0 @@
-@FILENAME=<%KEBAB|name%>.props
-@EXT=ts
-
-type I<%name%> = {
-
-}
-
-export default I<%name%>

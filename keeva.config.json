@@ -1,0 +1,9 @@
+{
+    "templatesUri": ".keeva/templates",
+    "methods": [
+        {
+            "name": "Hello World",
+            "folder": "HelloWorldComponents"
+        }
+    ]
+}

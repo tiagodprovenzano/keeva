@@ -1,4 +1,11 @@
-import { readdirSync, readFileSync } from "fs";
+import {
+  fstat,
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  mkdirSync
+} from "fs";
 import path from "path";
 
 type IConfigFileJSON = {
@@ -12,10 +19,13 @@ const defaultConfig: IConfigFileJSON = {
 };
 
 export class ConfigFile {
+  static keevaConfigFileName: string = "keeva.config.json";
+
   private rawContent: string | undefined;
   private projectPath: string;
   private content: IConfigFileJSON | undefined;
   private defaultContent: IConfigFileJSON = defaultConfig;
+
   constructor(projectPath: string) {
     this.projectPath = projectPath;
     this.getContent();
@@ -31,9 +41,12 @@ export class ConfigFile {
   }
 
   private readFile(): string | undefined | Buffer {
-    return readFileSync(path.join(this.projectPath, "keeva.config.json"), {
-      encoding: "utf-8",
-    });
+    return readFileSync(
+      path.join(this.projectPath, ConfigFile.keevaConfigFileName),
+      {
+        encoding: "utf-8",
+      }
+    );
   }
 
   private getContent() {
@@ -55,6 +68,38 @@ export class ConfigFile {
       return this.content.methods;
     } else {
       return this.defaultContent.methods;
+    }
+  }
+
+  static init(projectPath: string) {
+    const pathToConfigFile = path.join(
+      projectPath,
+      ConfigFile.keevaConfigFileName
+    );
+    const pathToTemplates = path.join("./.keeva/templates");
+    if(!existsSync(pathToTemplates)){
+      mkdirSync(pathToTemplates, {recursive: true})
+    }
+    const config: IConfigFileJSON = {
+      templatesUri: pathToTemplates,
+      methods: [{ name: "Hello World", folder: "HelloWorldComponents" }],
+    };
+    writeFileSync(pathToConfigFile, JSON.stringify(config));
+
+    const templateFileName: string = "helloWorld.kva";
+    const templateFilePath = path.join(__dirname, '../../templates/HelloWorldComponents', templateFileName);
+    if (existsSync(templateFilePath)) {
+      const templateFileContent: string = readFileSync(templateFilePath, {
+        encoding: "utf8",
+      });
+      const folderToSave = path.join(pathToTemplates, "HelloWorldComponents")
+      if(!existsSync(folderToSave)){
+        mkdirSync(folderToSave)
+      }
+      writeFileSync(
+        path.join(folderToSave, templateFileName),
+        templateFileContent,
+      );
     }
   }
 }
