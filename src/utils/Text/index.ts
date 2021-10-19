@@ -19,12 +19,12 @@ export class Text {
   }
 
   parse() {
-    const regex = new RegExp(/<%([A-Z,a-z,|]{0,})%>/gm);
+    const regex = new RegExp(/(<%([A-Z,a-z,|]{0,})%>|--([A-Z,a-z,|]{0,}))/gm);
     const matches = this.text.match(regex);
     let replacedText = this.text;
     if (matches) {
       for (const match of matches) {
-        let newText = match.replace(regex, "$1");
+        let newText = match.replace(regex, "$2$3");
         let useKebab = false;
         if (newText.includes("KEBAB")) {
           newText = newText.split("|")[1];
